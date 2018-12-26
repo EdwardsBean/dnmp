@@ -1,0 +1,48 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:${NGINX_VERSION}
+    container_name: nginx
+    ports:
+      - "${NGINX_HTTP_HOST_PORT}:80"
+      - "${NGINX_HTTPS_HOST_PORT}:443"
+    volumes:
+      - ${SOURCE_DIR}:/var/www/html/:rw
+      - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
+      - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
+      - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
+    restart: always
+    environment:
+        TZ: Asia/Shanghai
+    networks:
+      - default
+
+  php56:
+    build:
+      context: .
+      args:
+        PHP_VERSION: ${PHP56_VERSION}
+        PHP_XDEBUG: ${PHP56_XDEBUG}
+        PHP_SWOOLE: ${PHP56_SWOOLE}
+        PHP_REDIS: ${PHP56_REDIS}
+        REPLACE_SOURCE_LIST: ${REPLACE_SOURCE_LIST}
+    container_name: php56
+    environment:
+        # 设置时区，xdebug只能通过环境变量方式设置，在容器配置文件中设置无效
+        TZ: Asia/Shanghai
+        ENABLE_XDEBUG: 1
+        XDEBUG_CONFIG: remote_host=host.docker.internal
+    volumes:
+      - ${SOURCE_DIR}:/var/www/html/:rw
+      - ${PHP56_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP56_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+    restart: always
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      - default
+
+networks:
+  default:
+    external:
+      name: my-bridge
