@@ -1,5 +1,6 @@
 .idea
 .DS_Store
-.env
 www/*
 !www/localhost/
+conf/conf.d/*.conf.bk
+conf/conf.d/we7*
