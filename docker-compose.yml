@@ -9,7 +9,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html/:rw
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
-      - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
+      - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:rw
       - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
     restart: always
     environment:
@@ -34,7 +34,7 @@ services:
       XDEBUG_CONFIG: remote_host=host.docker.internal
     volumes:
       - ${SOURCE_DIR}:/var/www/html/:rw
-      - ${PHP72_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP72_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:rw
       - ${PHP72_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
     restart: always
     cap_add:
@@ -54,7 +54,7 @@ services:
     container_name: php56
     volumes:
       - ${SOURCE_DIR}:/var/www/html/:rw
-      - ${PHP56_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP56_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:rw
       - ${PHP56_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
     restart: always
     cap_add:
@@ -74,7 +74,7 @@ services:
     container_name: php54
     volumes:
       - ${SOURCE_DIR}:/var/www/html/:rw
-      - ${PHP54_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP54_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:rw
       - ${PHP54_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
     restart: always
     cap_add:
@@ -87,7 +87,7 @@ services:
     ports:
       - "${MYSQL_HOST_PORT}:3306"
     volumes:
-      - ${MYSQL_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+      - ${MYSQL_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:rw
       - ${MYSQL_DATA_DIR}:/var/lib/mysql/:rw
     restart: always
     networks:

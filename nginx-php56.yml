@@ -9,7 +9,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html/:rw
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
-      - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
+      - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:rw
       - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
     restart: always
     environment:
@@ -34,7 +34,7 @@ services:
         XDEBUG_CONFIG: remote_host=host.docker.internal
     volumes:
       - ${SOURCE_DIR}:/var/www/html/:rw
-      - ${PHP56_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP56_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:rw
       - ${PHP56_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
     restart: always
     cap_add:
