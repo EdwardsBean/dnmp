@@ -34,6 +34,7 @@ services:
         XDEBUG_CONFIG: remote_host=host.docker.internal
     container_name: php72
     volumes:
+      - ${LOG_DIR}:/var/log/php-fpm/:rw
       - ${SOURCE_DIR}:/var/www/html/:rw
       - ${PHP72_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:rw
       - ${PHP72_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw

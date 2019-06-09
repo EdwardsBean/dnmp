@@ -33,6 +33,7 @@ services:
         ENABLE_XDEBUG: 1
         XDEBUG_CONFIG: remote_host=host.docker.internal
     volumes:
+      - ${LOG_DIR}:/var/log/php-fpm/:rw
       - ${SOURCE_DIR}:/var/www/html/:rw
       - ${PHP56_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:rw
       - ${PHP56_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
