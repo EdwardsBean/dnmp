@@ -48,7 +48,7 @@ services:
     image: mysql:${MYSQL_VERSION}
     container_name: mysql
     ports:
-      - "${MYSQL_HOST_PORT}:3306"
+      - "33060:${MYSQL_HOST_PORT}"
     volumes:
       - ${MYSQL_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:rw
       - ${MYSQL_DATA_DIR}:/var/lib/mysql/:rw
